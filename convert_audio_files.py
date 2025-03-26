@@ -2,7 +2,7 @@ import os
 from pydub import AudioSegment
 
 audio_path = r"F:\Workspace\bioshock-audio-clustering\all_voicelines_ogg"
-output_folder = r"F:\Workspace\bioshock-audio-clustering\all_voicelines_wav2"
+output_folder = r"F:\Workspace\bioshock-audio-clustering\all_voicelines_wav"
 
 # Create output folder if it doesn't exist
 os.makedirs(output_folder, exist_ok=True)

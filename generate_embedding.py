@@ -1,7 +1,6 @@
 import torchaudio
 import os
-# os.environ["SB_DISABLE_SYMLINKS"] = "1"  # Completely disable symlinks
-# os.environ["SB_DOWNLOAD_STRATEGY"] = "COPY"
+import numpy as np
 
 from speechbrain.pretrained import EncoderClassifier
 from speechbrain.utils.fetching import LocalStrategy
@@ -12,6 +11,9 @@ emb_path = r"F:\Workspace\bioshock-audio-clustering\all_voicelines_emb"
 # Create output folder if it doesn't exist
 os.makedirs(emb_path, exist_ok=True)
 
+
+# os.environ["SB_DISABLE_SYMLINKS"] = "1"  # Completely disable symlinks
+# os.environ["SB_DOWNLOAD_STRATEGY"] = "COPY"
 
 # Load the model
 classifier = EncoderClassifier.from_hparams(
@@ -28,10 +30,23 @@ def generate_embedding(wav_file):
     embedding = classifier.encode_batch(signal)
     return embedding
 
+
+embeddings = []
+
+
+
+
  
 wav_files = [os.path.join(wav_path, file) for file in os.listdir(wav_path)]
-print(wav_files[0]) 
 
+for file in wav_files:
+    emb = generate_embedding(file)
+    embeddings.append(emb)
+    np.save(os.path.join(emb_path, file.split("\\")[-1].replace(".wav", ".npy")), emb)
+    print(f"Embedding generated for {file}")
 
-print(generate_embedding(wav_files[0]))
+print("Embedding generation complete!")
+
+# print(embeddings)
+
 

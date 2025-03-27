@@ -33,10 +33,6 @@ def generate_embedding(wav_file):
 
 embeddings = []
 
-
-
-
- 
 wav_files = [os.path.join(wav_path, file) for file in os.listdir(wav_path)]
 
 for file in wav_files:
